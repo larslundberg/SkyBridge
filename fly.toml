@@ -1,44 +1,23 @@
-# fly.toml app configuration file generated for skybridge on 2023-05-12T22:53:14+01:00
+# fly.toml app configuration file generated for larsbridge on 2025-06-30T08:06:03Z
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = "larsbridge"
-primary_region = "lhr"
+app = 'larsbridge'
+primary_region = 'arn'
+
+[build]
 
 [http_service]
   internal_port = 8080
   force_https = true
-  auto_stop_machines = true
+  auto_stop_machines = 'stop'
   auto_start_machines = true
   min_machines_running = 0
-
-[env]
-  SKYBRIDGE_BASEURL = "larsbridge.fly.dev"
-  SKYBRIDGE_SHOW_INDEX = true
-  FLY_SWAP = true
-  SKYBRIDGE_SECRET='12345654321' 
-  SKYBRIDGE_REQUIRE_AUTH_PASSWORD = true
-  SKYBRIDGE_AUTH_PASSWORD = '' 
-  SKYBRIDGE_ALLOW_BACKFILL = true
-
-[mounts]
-  source="skybridge_data"
-  destination="/app/database"
-
-[[http_service.checks]]
-  grace_period = "30s"
-  interval = "30s"
-  method = "GET"
-  timeout = "5s"
-  path = "/api/v2/instance"
-
-[http_service.concurrency]
-  type = "requests"
-  hard_limit = 999999
-  soft_limit = 9999
+  processes = ['app']
 
 [[vm]]
   memory = '256mb'
   cpu_kind = 'shared'
   cpus = 1
+  memory_mb = 256
